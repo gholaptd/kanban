@@ -54,3 +54,20 @@ summary{cursor:pointer;font-weight:700}
 .chips button{border:0;background:none;color:#fff;padding:0 0 0 4px}
 .setup{max-width:520px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* sync + day view */
+.top .pill{margin-right:auto;font-size:.8rem;font-weight:700;border-radius:999px;padding:2px 10px;border:2px solid var(--line);color:var(--muted)}
+.pill.synced{border-color:var(--ok);color:var(--ok)}.pill.error{border-color:var(--late);color:var(--late)}
+.scope{margin-left:auto;display:flex}.scope button{border-radius:0}.scope button:first-child{border-radius:10px 0 0 10px}.scope button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.scope .on,.daypick .on{background:var(--ink);color:var(--paper)}
+.daypick{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+.daypick button{display:flex;flex-direction:column;align-items:center;padding:6px 0;line-height:1.2}
+.daypick .now:not(.on){border-color:var(--late);color:var(--late)}
+.daylist{max-width:640px}.daylist h2{font-size:1.6rem}.daylist h3{margin:18px 0 6px}
+.count{color:var(--muted);margin:0 0 10px;font-weight:700}
+.task.big{padding:12px;margin-bottom:10px}.task.big label{font-size:1.2rem}.task.big input[type=checkbox]{width:30px;height:30px}
+.task.big small{margin-left:38px}
+.with-btn{display:flex;gap:8px;align-items:flex-start}.with-btn .task{flex:1}.with-btn>button{white-space:nowrap;margin-top:4px}
+.dlist{list-style:none;padding:0;margin:8px 0}.dlist li{padding:4px 0}.dlist li.ok{color:var(--ok)}.dlist small{color:var(--muted)}
+.field{display:grid;gap:4px;font-weight:700;margin-bottom:12px}
+.setup .warn{margin-bottom:12px}
