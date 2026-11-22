@@ -12,10 +12,23 @@ export async function call(cfg, body) {
   return j
 }
 
+const pad = (n) => String(n).padStart(2, '0')
+// Accepts "2026-11-16" and, as a safety net, any date text the Sheet may have produced.
+const toWeek = (w) => {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(w)) return w
+  const d = new Date(w)
+  return isNaN(d) ? w : `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+}
+
 export const normalize = (raw) => ({
   kids: raw.Kids || [],
-  tasks: (raw.Tasks || []).map((t) => ({ ...t, day: t.day === '' ? null : Number(t.day), done: t.done === 'true' })),
-  notes: raw.Notes || [],
+  tasks: (raw.Tasks || []).map((t) => ({
+    ...t,
+    week: toWeek(t.week),
+    day: t.day === '' ? null : Number(t.day),
+    done: String(t.done).toLowerCase() === 'true',
+  })),
+  notes: (raw.Notes || []).map((n) => ({ ...n, week: toWeek(n.week) })),
 })
 
 export const allOps = (d) => [
