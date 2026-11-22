@@ -2,10 +2,10 @@
   --bg:var(--paper);--fg:var(--ink);color-scheme:light}
 @media (prefers-color-scheme:dark){:root{--paper:#141a2e;--ink:#eef1fb;--card:#1e2640;--line:#33406a;--muted:#a3adcc;--hi:#3d3a1f;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 Nunito,system-ui,sans-serif;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 32px;background-attachment:local}
+body{margin:0;background:#bfe3f5;color:var(--ink);font:16px/1.45 Nunito,system-ui,sans-serif}
 h1,h2,h3,h4{font-family:'Baloo 2',Nunito,sans-serif;margin:0}
-.app{max-width:1200px;margin:0 auto;padding:16px;padding-top:max(16px,env(safe-area-inset-top))}
+.app{max-width:1200px;margin:12px auto;padding:16px;border-radius:20px;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+@media(max-width:700px){.app{margin:0;border-radius:0;min-height:100vh}}
 .top{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
 .top h1{font-size:2rem;font-weight:800}
 button,select,input{font:inherit;color:inherit}
@@ -71,3 +71,25 @@ summary{cursor:pointer;font-weight:700}
 .dlist{list-style:none;padding:0;margin:8px 0}.dlist li{padding:4px 0}.dlist li.ok{color:var(--ok)}.dlist small{color:var(--muted)}
 .field{display:grid;gap:4px;font-weight:700;margin-bottom:12px}
 .setup .warn{margin-bottom:12px}
+
+/* animated nature background */
+.scene{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;
+  --sky1:#8fd0f2;--sky2:#e6f6e4;--sun:#ffe27a;--cl:#fff;--h1:#9ccc8a;--h2:#6fb37a;--h3:#3f9468;--lf:#e8a33d;
+  background:linear-gradient(var(--sky1),var(--sky2) 70%)}
+@media(prefers-color-scheme:dark){.scene{--sky1:#0f1a38;--sky2:#2a3c63;--sun:#dfe6ff;--cl:#4a5b85;--h1:#2f5a56;--h2:#254a4a;--h3:#173a3a;--lf:#9a7a3a}}
+.sun{position:absolute;top:6%;right:9%;width:90px;height:90px;border-radius:50%;background:var(--sun);box-shadow:0 0 70px 30px color-mix(in srgb,var(--sun) 55%,transparent);animation:glow 8s ease-in-out infinite}
+@keyframes glow{50%{transform:scale(1.08);box-shadow:0 0 90px 42px color-mix(in srgb,var(--sun) 55%,transparent)}}
+.cloud{position:absolute;left:0;fill:var(--cl);opacity:.9;animation:drift linear infinite}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(110vw)}}
+.bird{position:absolute;left:0;width:26px;stroke:#2b3350;animation:fly linear infinite}
+@media(prefers-color-scheme:dark){.bird{stroke:#9fb0d8}}
+@keyframes fly{from{transform:translate(-10vw,0)}50%{transform:translate(55vw,-24px)}to{transform:translate(110vw,6px)}}
+.hills{position:absolute;bottom:0;left:0;width:200%;animation:pan linear infinite}
+.hills path{stroke:none}
+.hills.far{animation-duration:240s}.hills.far path{fill:var(--h1)}
+.hills.mid{animation-duration:150s}.hills.mid path{fill:var(--h2)}
+.hills.near{animation-duration:90s}.hills.near path{fill:var(--h3)}
+@keyframes pan{to{transform:translateX(-50%)}}
+.leaf{position:absolute;top:-24px;width:14px;height:14px;background:var(--lf);border-radius:0 100% 0 100%;opacity:.8;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,-5vh) rotate(0)}50%{transform:translate(40px,55vh) rotate(180deg)}100%{transform:translate(-20px,108vh) rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.scene *{animation:none!important}.leaf{display:none}}
